@@ -14,13 +14,9 @@ shap
 
 numpy
 
-numba
-
 pycaret
 
 tensorflow
-
-keras
 
 scikit-optimize
 
