@@ -1,0 +1,137 @@
+[
+  {
+    "fecha_prediccion": "2025-06-22 11:10:49",
+    "lluvia_ma\u00f1ana": false,
+    "probabilidad_lluvia": 0.012437835335731506,
+    "probabilidad_no_lluvia": 0.9875621795654297,
+    "confianza": "Alta",
+    "valor_real": false,
+    "acierto": true
+  },
+  {
+    "fecha_prediccion": "2025-06-22 11:10:49",
+    "lluvia_ma\u00f1ana": false,
+    "probabilidad_lluvia": 0.17333395779132843,
+    "probabilidad_no_lluvia": 0.8266660571098328,
+    "confianza": "Alta",
+    "valor_real": false,
+    "acierto": true
+  },
+  {
+    "fecha_prediccion": "2025-06-22 11:10:49",
+    "lluvia_ma\u00f1ana": false,
+    "probabilidad_lluvia": 0.0022741961292922497,
+    "probabilidad_no_lluvia": 0.997725784778595,
+    "confianza": "Alta",
+    "valor_real": false,
+    "acierto": true
+  },
+  {
+    "fecha_prediccion": "2025-06-22 11:10:49",
+    "lluvia_ma\u00f1ana": false,
+    "probabilidad_lluvia": 0.02702190913259983,
+    "probabilidad_no_lluvia": 0.9729781150817871,
+    "confianza": "Alta",
+    "valor_real": false,
+    "acierto": true
+  },
+  {
+    "fecha_prediccion": "2025-06-22 11:10:49",
+    "lluvia_ma\u00f1ana": false,
+    "probabilidad_lluvia": 0.08680006116628647,
+    "probabilidad_no_lluvia": 0.9131999611854553,
+    "confianza": "Alta",
+    "valor_real": false,
+    "acierto": true
+  },
+  {
+    "fecha_prediccion": "2025-06-22 11:10:49",
+    "lluvia_ma\u00f1ana": false,
+    "probabilidad_lluvia": 0.3647753894329071,
+    "probabilidad_no_lluvia": 0.6352245807647705,
+    "confianza": "Media",
+    "valor_real": false,
+    "acierto": true
+  },
+  {
+    "fecha_prediccion": "2025-06-22 11:10:50",
+    "lluvia_ma\u00f1ana": false,
+    "probabilidad_lluvia": 0.014680716209113598,
+    "probabilidad_no_lluvia": 0.9853192567825317,
+    "confianza": "Alta",
+    "valor_real": false,
+    "acierto": true
+  },
+  {
+    "fecha_prediccion": "2025-06-22 11:10:50",
+    "lluvia_ma\u00f1ana": false,
+    "probabilidad_lluvia": 0.0849267765879631,
+    "probabilidad_no_lluvia": 0.9150732159614563,
+    "confianza": "Alta",
+    "valor_real": false,
+    "acierto": true
+  },
+  {
+    "fecha_prediccion": "2025-06-22 11:10:50",
+    "lluvia_ma\u00f1ana": false,
+    "probabilidad_lluvia": 0.0969635620713234,
+    "probabilidad_no_lluvia": 0.9030364155769348,
+    "confianza": "Alta",
+    "valor_real": false,
+    "acierto": true
+  },
+  {
+    "fecha_prediccion": "2025-06-22 11:10:50",
+    "lluvia_ma\u00f1ana": true,
+    "probabilidad_lluvia": 0.7653302550315857,
+    "probabilidad_no_lluvia": 0.2346697449684143,
+    "confianza": "Media",
+    "valor_real": false,
+    "acierto": false
+  },
+  {
+    "fecha_prediccion": "2025-06-22 11:10:50",
+    "lluvia_ma\u00f1ana": false,
+    "probabilidad_lluvia": 0.0011558678233996034,
+    "probabilidad_no_lluvia": 0.9988441467285156,
+    "confianza": "Alta",
+    "valor_real": false,
+    "acierto": true
+  },
+  {
+    "fecha_prediccion": "2025-06-22 11:10:50",
+    "lluvia_ma\u00f1ana": false,
+    "probabilidad_lluvia": 0.268943727016449,
+    "probabilidad_no_lluvia": 0.731056272983551,
+    "confianza": "Media",
+    "valor_real": false,
+    "acierto": true
+  },
+  {
+    "fecha_prediccion": "2025-06-22 11:10:50",
+    "lluvia_ma\u00f1ana": false,
+    "probabilidad_lluvia": 0.025758488103747368,
+    "probabilidad_no_lluvia": 0.9742414951324463,
+    "confianza": "Alta",
+    "valor_real": false,
+    "acierto": true
+  },
+  {
+    "fecha_prediccion": "2025-06-22 11:10:50",
+    "lluvia_ma\u00f1ana": true,
+    "probabilidad_lluvia": 0.9833446145057678,
+    "probabilidad_no_lluvia": 0.016655385494232178,
+    "confianza": "Alta",
+    "valor_real": true,
+    "acierto": true
+  },
+  {
+    "fecha_prediccion": "2025-06-22 11:10:50",
+    "lluvia_ma\u00f1ana": true,
+    "probabilidad_lluvia": 0.8956478238105774,
+    "probabilidad_no_lluvia": 0.10435217618942261,
+    "confianza": "Alta",
+    "valor_real": true,
+    "acierto": true
+  }
+]
