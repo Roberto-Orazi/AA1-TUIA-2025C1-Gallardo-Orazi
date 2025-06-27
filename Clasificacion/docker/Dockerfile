@@ -9,6 +9,8 @@ COPY mejor_modelo_nn.h5 .
 COPY preprocess.pkl .
 COPY inferencia.py .
 COPY weatherAUS.csv .
+COPY test.csv .
+
 
 RUN mkdir -p /app/resultados
 

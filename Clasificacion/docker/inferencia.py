@@ -258,58 +258,61 @@ def main():
     resultados = []
 
     # 1. Datos del dataset original (10 ejemplos)
-    print("\n📊 PREDICCIONES CON DATOS DEL DATASET:")
-    print("-" * 40)
+    print("\n📊 PREDICCIONES CON DATOS DEL DATASET ORIGINAL:")
+    print("-" * 50)
 
-    df = pd.read_csv("weatherAUS.csv")
-    for i in range(10):
-        datos_aleatorios = df.sample(n=1).iloc[0].to_dict()
+    try:
+        df = pd.read_csv("weatherAUS.csv")
+        for i in range(10):
+            datos_aleatorios = df.sample(n=1).iloc[0].to_dict()
 
-        # Guardar valor real
-        valor_real = datos_aleatorios.get("RainTomorrow", None)
-        if "RainTomorrow" in datos_aleatorios:
-            del datos_aleatorios["RainTomorrow"]
+            # Guardar valor real
+            valor_real = datos_aleatorios.get("RainTomorrow", None)
+            if "RainTomorrow" in datos_aleatorios:
+                del datos_aleatorios["RainTomorrow"]
 
-        if "Location" in datos_aleatorios:
-            location = datos_aleatorios["Location"]
-            region_mapping = {
-                "Sydney": "Nueva Gales del Sur Norte",
-                "Melbourne": "Victoria",
-                "Brisbane": "Queensland Central",
-                "Darwin": "Territorio Norte",
-                "Adelaide": "Territorio Norte",
-                "Perth": "Territorio Norte",
-                "Hobart": "Victoria",
-                "Canberra": "Nueva Gales del Sur Norte",
-            }
-            datos_aleatorios["Region"] = region_mapping.get(
-                location, "Nueva Gales del Sur Norte"
-            )
-            del datos_aleatorios["Location"]
+            if "Location" in datos_aleatorios:
+                location = datos_aleatorios["Location"]
+                region_mapping = {
+                    "Sydney": "Nueva Gales del Sur Norte",
+                    "Melbourne": "Victoria",
+                    "Brisbane": "Queensland Central",
+                    "Darwin": "Territorio Norte",
+                    "Adelaide": "Territorio Norte",
+                    "Perth": "Territorio Norte",
+                    "Hobart": "Victoria",
+                    "Canberra": "Nueva Gales del Sur Norte",
+                }
+                datos_aleatorios["Region"] = region_mapping.get(
+                    location, "Nueva Gales del Sur Norte"
+                )
+                del datos_aleatorios["Location"]
 
-        resultado = predictor.predecir(datos_aleatorios)
-        resultado["tipo"] = "dataset"
+            resultado = predictor.predecir(datos_aleatorios)
+            resultado["tipo"] = "dataset_original"
 
-        if "error" not in resultado:
-            if valor_real is not None:
-                valor_real_bool = valor_real == "Yes"
-                resultado["valor_real"] = valor_real_bool
-                resultado["acierto"] = resultado["lluvia_manana"] == valor_real_bool
+            if "error" not in resultado:
+                if valor_real is not None:
+                    valor_real_bool = valor_real == "Yes"
+                    resultado["valor_real"] = valor_real_bool
+                    resultado["acierto"] = resultado["lluvia_manana"] == valor_real_bool
 
-            fecha = datos_aleatorios.get("Date", "N/A")
-            lluvia = "🌧️ SÍ" if resultado["lluvia_manana"] else "☀️ NO"
-            real = "🌧️ SÍ" if resultado.get("valor_real", False) else "☀️ NO"
-            acierto = "✅" if resultado.get("acierto", False) else "❌"
-            prob = resultado["probabilidad_lluvia"]
+                fecha = datos_aleatorios.get("Date", "N/A")
+                lluvia = "🌧️ SÍ" if resultado["lluvia_manana"] else "☀️ NO"
+                real = "🌧️ SÍ" if resultado.get("valor_real", False) else "☀️ NO"
+                acierto = "✅" if resultado.get("acierto", False) else "❌"
+                prob = resultado["probabilidad_lluvia"]
 
-            print(
-                f"📍 Dataset {i+1}: {fecha} - Pred: {lluvia} | Real: {real} {acierto} ({prob:.1%})"
-            )
-            resultados.append(resultado)
+                print(
+                    f"📍 Original {i+1}: {fecha} - Pred: {lluvia} | Real: {real} {acierto} ({prob:.1%})"
+                )
+                resultados.append(resultado)
+    except FileNotFoundError:
+        print("❌ No se encontró el archivo weatherAUS.csv")
 
     # 2. Datos sintéticos (10 ejemplos)
     print("\n🧪 PREDICCIONES CON DATOS SINTÉTICOS:")
-    print("-" * 40)
+    print("-" * 50)
 
     datos_sinteticos = generar_datos_sinteticos(10)
 
@@ -344,33 +347,95 @@ def main():
             )
             resultados.append(resultado)
 
+    # 3. NUEVA SECCIÓN: Datos aleatorios del conjunto de TEST
+    print("\n🎯 PREDICCIONES CON DATOS ALEATORIOS DEL CONJUNTO DE TEST:")
+    print("-" * 60)
+
+    try:
+        df_test = pd.read_csv("test.csv", sep=';')
+        print(f"📊 Dataset de test cargado: {len(df_test)} registros")
+
+        # Tomar 15 ejemplos aleatorios del test set
+        for i in range(15):
+            datos_test = df_test.sample(n=1).iloc[0].to_dict()
+
+            # Guardar valor real
+            valor_real = datos_test.get("RainTomorrow", None)
+            if "RainTomorrow" in datos_test:
+                del datos_test["RainTomorrow"]
+
+            resultado = predictor.predecir(datos_test)
+            resultado["tipo"] = "test_aleatorio"
+
+            if "error" not in resultado:
+                if valor_real is not None:
+                    valor_real_bool = bool(valor_real)  # Ya viene como 0/1
+                    resultado["valor_real"] = valor_real_bool
+                    resultado["acierto"] = resultado["lluvia_manana"] == valor_real_bool
+
+                fecha = datos_test.get("Date", "N/A")
+                lluvia = "🌧️ SÍ" if resultado["lluvia_manana"] else "☀️ NO"
+                real = "🌧️ SÍ" if resultado.get("valor_real", False) else "☀️ NO"
+                acierto = "✅" if resultado.get("acierto", False) else "❌"
+                prob = resultado["probabilidad_lluvia"]
+
+                print(
+                    f"🎯 Test {i+1:2d}: {fecha} - Pred: {lluvia} | Real: {real} {acierto} ({prob:.1%})"
+                )
+                resultados.append(resultado)
+            else:
+                print(f"❌ Error en Test {i+1}: {resultado['error']}")
+
+    except FileNotFoundError:
+        print("❌ No se encontró el archivo test.csv")
+        print("💡 Ejecuta primero el código para exportar el dataset de test")
+
     # Guardar resultados
     with open("prediccion_resultado.json", "w") as f:
         json.dump(resultados, f, indent=2, default=str)
 
-    # Estadísticas
-    dataset_results = [r for r in resultados if r.get("tipo") == "dataset"]
+    # Estadísticas mejoradas
+    dataset_results = [r for r in resultados if r.get("tipo") == "dataset_original"]
     synthetic_results = [r for r in resultados if r.get("tipo") == "sintetico"]
+    test_results = [r for r in resultados if r.get("tipo") == "test_aleatorio"]
 
     aciertos_dataset = sum(1 for r in dataset_results if r.get("acierto", False))
     aciertos_sinteticos = sum(1 for r in synthetic_results if r.get("acierto", False))
+    aciertos_test = sum(1 for r in test_results if r.get("acierto", False))
 
-    print(f"\n📊 RESUMEN:")
-    print(
-        f"✅ Dataset: {aciertos_dataset}/{len(dataset_results)} aciertos ({aciertos_dataset/len(dataset_results):.1%})"
-    )
-    print(
-        f"🧪 Sintéticos: {aciertos_sinteticos}/{len(synthetic_results)} aciertos ({aciertos_sinteticos/len(synthetic_results):.1%})"
-    )
-    print(
-        f"📁 {len(resultados)} predicciones totales guardadas en prediccion_resultado.json"
+    print(f"\n📊 RESUMEN FINAL:")
+    print("=" * 60)
+    if dataset_results:
+        print(
+            f"📍 Dataset Original: {aciertos_dataset}/{len(dataset_results)} aciertos ({aciertos_dataset/len(dataset_results):.1%})"
+        )
+    if synthetic_results:
+        print(
+            f"🧪 Datos Sintéticos: {aciertos_sinteticos}/{len(synthetic_results)} aciertos ({aciertos_sinteticos/len(synthetic_results):.1%})"
+        )
+    if test_results:
+        print(
+            f"🎯 Test Aleatorio:   {aciertos_test}/{len(test_results)} aciertos ({aciertos_test/len(test_results):.1%})"
+        )
+
+    total_aciertos = aciertos_dataset + aciertos_sinteticos + aciertos_test
+    total_predicciones = (
+        len(dataset_results) + len(synthetic_results) + len(test_results)
     )
 
-    # Distribución de confianza en datos sintéticos
-    confianzas = [r["confianza"] for r in synthetic_results]
-    print(
-        f"🎯 Confianza sintéticos: Alta={confianzas.count('Alta')}, Media={confianzas.count('Media')}, Baja={confianzas.count('Baja')}"
-    )
+    if total_predicciones > 0:
+        print(
+            f"🏆 TOTAL GENERAL:    {total_aciertos}/{total_predicciones} aciertos ({total_aciertos/total_predicciones:.1%})"
+        )
+
+    print(f"📁 {len(resultados)} predicciones guardadas en prediccion_resultado.json")
+
+    # Distribución de confianza
+    if test_results:
+        confianzas_test = [r["confianza"] for r in test_results]
+        print(
+            f"🎯 Confianza Test: Alta={confianzas_test.count('Alta')}, Media={confianzas_test.count('Media')}, Baja={confianzas_test.count('Baja')}"
+        )
 
 
 if __name__ == "__main__":
